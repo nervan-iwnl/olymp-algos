@@ -41,4 +41,4 @@ inline std::vector<int> kmp_search(const std::string &text,
     }
 
     return pos;
-}
+}   
