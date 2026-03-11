@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <utility>
 
 // Disjoint Set Union (DSU) / Union-Find.
 // Структура данных для поддержки семейств непересекающихся множеств.
