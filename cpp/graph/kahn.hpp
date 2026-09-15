@@ -32,7 +32,7 @@ std::vector<int> topo_sort(std::vector<std::vector<int>>& graph) {
             if (--indegree[v] == 0) q.push(v);
         }
     }
-    if (order.size() != n) return {};
+    if (order.size() != graph.size()) return {};
     
     return order;
 }

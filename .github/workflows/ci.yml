@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: GCC
+            compiler: g++
+            sanitizers: "OFF"
+          - name: Clang
+            compiler: clang++
+            sanitizers: "OFF"
+          - name: Clang ASan + UBSan
+            compiler: clang++
+            sanitizers: "ON"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Configure
+        env:
+          CXX: ${{ matrix.compiler }}
+        run: >-
+          cmake -S . -B build-ci
+          -DCMAKE_BUILD_TYPE=Debug
+          -DENABLE_SANITIZERS=${{ matrix.sanitizers }}
+
+      - name: Build
+        run: cmake --build build-ci --parallel
+
+      - name: Run tests
+        run: ctest --test-dir build-ci --output-on-failure --timeout 60
