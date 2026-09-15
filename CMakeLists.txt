@@ -8,6 +8,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/cpp)
 
-add_executable(dijkstra_example
-    examples/graph/dijkstra_example.cpp
+add_executable(aho_corasick_example
+    examples/strings/aho_corasick_example.cpp
 )
