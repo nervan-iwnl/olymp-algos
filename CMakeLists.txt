@@ -20,6 +20,10 @@ add_executable(aho_corasick_example
     examples/strings/aho_corasick_example.cpp
 )
 
+add_executable(suffix_tree_example
+    examples/strings/suffix_tree_example.cpp
+)
+
 if(BUILD_TESTING)
     include(FetchContent)
     FetchContent_Declare(
